@@ -1,0 +1,102 @@
+body {
+  font-family: Arial, sans-serif;
+  text-align: center;
+  padding: 10px;
+  width: 300px;
+}
+
+header {
+  background-color: #0073e6;
+  color: white;
+  padding: 8px;
+  border-radius: 5px;
+}
+
+.tagline {
+  font-size: 0.9em;
+  opacity: 0.8;
+}
+
+#site-list {
+  text-align: left;
+  margin-top: 15px;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+}
+
+li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px;
+  border-bottom: 1px solid #ddd;
+}
+
+/* --- Favicon Styling --- */
+.favicon {
+  width: 16px;
+  height: 16px;
+  margin-right: 8px;
+}
+
+/* --- Privacy Score Display --- */
+.privacy-score {
+  height: 20px;
+  width: auto;
+  min-width: 70px;
+  color: white;
+  text-align: center;
+  border-radius: 3px;
+  font-size: 0.9em;
+  padding: 3px 5px;
+}
+
+/* --- Keep Privacy Score Box Consistent --- */
+.score-container {
+  width: 1.2in; /* Approx 1 inch */
+  height: 20px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  overflow: hidden;
+  background-color: #f0f0f0;
+  position: relative;
+  display: inline-block;
+}
+
+/* --- Risk Label Styling (No Box) --- */
+.risk-label {
+  font-weight: bold;
+  margin-left: 8px;
+}
+
+/* --- Feedback Section --- */
+#feedback {
+  margin-top: 15px;
+}
+
+/* --- Buttons (Thumbs Up / Down) --- */
+button {
+  font-size: 1.5em;
+  margin: 5px;
+  cursor: pointer;
+  background: none;
+  border: none;
+}
+
+button:hover {
+  opacity: 0.7;
+}
+
+/* --- "Go to Website" Link --- */
+#more-info {
+  margin-top: 10px;
+}
+
+#more-info a {
+  text-decoration: none;
+  color: #0073e6;
+  font-weight: bold;
+}

@@ -1,29 +1,35 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <title>Search Scraper</title>
-    <style>
-      body {
-        font-family: Arial, sans-serif;
-        padding: 10px;
-        width: 300px;
-      }
-      ul {
-        list-style: none;
-        padding: 0;
-      }
-      li {
-        margin: 5px 0;
-      }
-      a {
-        text-decoration: none;
-        color: blue;
-      }
-    </style>
-  </head>
-  <body>
-    <h3>Extracted Links</h3>
-    <ul id="results"></ul>
-    <script src="popup.js"></script>
-  </body>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PrivacyLens</title>
+  <link rel="stylesheet" href="popup.css">
+  <script src="popup.js" defer></script>
+</head>
+<body>
+  <header>
+    <h1>PrivacyLens</h1>
+    <p class="tagline">Your privacy companion for safer browsing</p>
+  </header>
+
+  <section id="site-list">
+    <h2>Websites & their Privacy Scores</h2>
+    <ul id="domain-list"></ul>
+  </section>
+
+  <section id="more-info">
+    <a href="https://example.com" target="_blank">Go to PrivacyLens website to know more details</a>
+  </section>
+
+  <section id="feedback">
+    <br>
+    <h5>Was this helpful?
+    <button id="thumbs-up">👍</button>
+    <button id="thumbs-down">👎</button>
+    </h5>
+  </section>
+
+  
+</body>
 </html>
