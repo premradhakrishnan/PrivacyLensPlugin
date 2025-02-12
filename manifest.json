@@ -1,20 +1,32 @@
 {
     "manifest_version": 3,
-    "name": "PrivacyLens Domain Extractor",
+    "name": "PrivacyLens",
     "version": "1.0",
-    "description": "Extracts domain names from Google search results and saves them to a file.",
-    "permissions": ["downloads", "activeTab", "scripting"],
-    "host_permissions": ["https://www.google.com/*"],
+    "description": "Privacy-focused health search assistant that analyzes search queries and extracts domains.",
+    "permissions": [
+        "activeTab", 
+        "scripting",
+        "storage"
+    ],
+    "host_permissions": [
+        "https://www.google.com/*",
+        "https://api.openai.com/*"
+    ],
     "background": {
-      "service_worker": "background.js"
-    },
-    "action": {
-      "default_popup": "popup.html"
+        "service_worker": "background.js",
+        "type": "module"
     },
     "content_scripts": [
+        {
+            "matches": ["https://www.google.com/search*"],
+            "js": ["content.js"],
+            "type": "module"
+        }
+    ],
+    "web_accessible_resources": [
       {
-        "matches": ["https://www.google.com/search*"],
-        "js": ["content.js"]
+        "resources": ["config.js"],
+        "matches": ["https://www.google.com/*"]
       }
     ]
   }
