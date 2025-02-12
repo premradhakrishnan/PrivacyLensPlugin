@@ -1,32 +1,14 @@
 {
     "manifest_version": 3,
-    "name": "PrivacyLens",
+    "name": "Health Query Detector",
     "version": "1.0",
-    "description": "Privacy-focused health search assistant that analyzes search queries and extracts domains.",
-    "permissions": [
-        "activeTab", 
-        "scripting",
-        "storage"
-    ],
-    "host_permissions": [
-        "https://www.google.com/*",
-        "https://api.openai.com/*"
-    ],
-    "background": {
-        "service_worker": "background.js",
-        "type": "module"
-    },
+    "description": "Determines if a search query is health-related.",
+    "permissions": ["tabs", "activeTab"],
     "content_scripts": [
-        {
-            "matches": ["https://www.google.com/search*"],
-            "js": ["content.js"],
-            "type": "module"
-        }
-    ],
-    "web_accessible_resources": [
       {
-        "resources": ["config.js"],
-        "matches": ["https://www.google.com/*"]
+        "matches": ["https://www.google.com/search*"],
+        "js": ["contentScript.js"]
       }
     ]
   }
+  
