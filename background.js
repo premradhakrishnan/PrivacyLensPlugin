@@ -8,7 +8,16 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
     saveToFile(); // Save domains to a file
   } else if (message.type === "getDomains") {
     // Send stored domains to the popup
-    sendResponse({ data: Array.from(storedDomains) });
+    const blockedDomains = [
+      "google.com", "google.co.in", "support.google.com", "accounts.google.com",
+      "maps.google.com", "news.google.com", "drive.google.com"
+    ];
+    
+    const filteredDomains = Array.from(storedDomains).filter(domain => 
+      !blockedDomains.some(d => domain.endsWith(d))
+    );
+    
+    sendResponse({ data: filteredDomains });
   }
 });
 

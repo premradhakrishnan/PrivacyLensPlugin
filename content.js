@@ -20,7 +20,12 @@ const observer = new MutationObserver(() => {
     const domain = extractDomain(url);
 
     // Filter: Add only valid, unique domains
-    if (domain && !domains.has(domain)) {
+    const blockedDomains = [
+      "google.com", "google.co.in", "support.google.com", "accounts.google.com",
+      "maps.google.com", "news.google.com", "drive.google.com", "youtube.com"
+    ];
+    
+    if (domain && !domains.has(domain) && !blockedDomains.some(d => domain.endsWith(d))) {
       domains.add(domain); // Add to the Set
       console.log("Extracted domain:", domain);
     }

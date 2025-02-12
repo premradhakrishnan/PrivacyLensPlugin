@@ -9,15 +9,23 @@ document.addEventListener("DOMContentLoaded", () => {
       domains.forEach((domain) => {
           const li = document.createElement("li");
 
+          const domainContainer = document.createElement("div");
+          domainContainer.classList.add("domain-container");
+
+          // Create favicon image element
+          const favicon = document.createElement("img");
+          favicon.src = `https://t2.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=http://${domain}&size=16`;
+          favicon.classList.add("favicon");
+
           // Create the domain name display
           const span = document.createElement("span");
           span.textContent = domain;
-          li.appendChild(span);
 
-          // Generate a random privacy score (replace this with actual logic)
-          const score = Math.floor(Math.random() * 11); // Random score 0-10
+          domainContainer.appendChild(favicon);
+          domainContainer.appendChild(span);
 
-          // Get risk level and color
+          // Generate a random privacy score (replace with actual logic)
+          const score = Math.floor(Math.random() * 11);
           const { riskLevel, color } = getRiskLevel(score);
 
           // Create a text element for risk level
@@ -26,8 +34,13 @@ document.addEventListener("DOMContentLoaded", () => {
           riskText.style.color = color;
           riskText.style.fontWeight = "bold";
           riskText.style.marginLeft = "8px";
+          riskText.classList.add("risk-label");
 
+          // Append elements to list item
+          li.appendChild(favicon);
+          li.appendChild(span);
           li.appendChild(riskText);
+          li.appendChild(domainContainer);
           domainList.appendChild(li);
       });
   });
