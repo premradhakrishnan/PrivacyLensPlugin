@@ -1,14 +1,13 @@
 {
-    "manifest_version": 3,
-    "name": "Health Query Detector",
-    "version": "1.0",
-    "description": "Determines if a search query is health-related.",
-    "permissions": ["tabs", "activeTab"],
-    "content_scripts": [
-      {
-        "matches": ["https://www.google.com/search*"],
-        "js": ["contentScript.js"]
-      }
-    ]
-  }
-  
+  "manifest_version": 3,
+  "name": "Health Query Detector",
+  "version": "1.0",
+  "description": "Determines if a search query is health-related.",
+  "permissions": ["tabs", "activeTab"],
+  "content_scripts": [
+    {
+      "matches": ["https://www.google.com/search*"],
+      "js": ["config.js", "contentScript.js"]
+    }
+  ]
+}
