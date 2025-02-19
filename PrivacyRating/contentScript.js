@@ -7,8 +7,9 @@ const modalStyles = `
   position: fixed;
   top: 20px;
   right: 20px;
-  width: 384px; /* w-96 equivalent */
+  width: 350px;
   background: white;
+  
   border-radius: 8px;
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
   z-index: 10000;
@@ -23,8 +24,6 @@ const modalStyles = `
 .privacy-lens-header {
   padding: 16px;
   border-radius: 8px 8px 0 0;
-  background-color: #F8F7FF;
-  /*background: linear-gradient(135deg, #4282AA 0%, #6141AC 100%);*/
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
@@ -38,24 +37,9 @@ const modalStyles = `
 }
 
 .privacy-lens-logo {
-  width: 48px;
-  height: 48px;
-}
-
-.privacy-lens-title {
-  color: white;
-}
-
-.privacy-lens-title h2 {
-  margin: 0;
-  font-size: 18px;
-  font-weight: bold;
-}
-
-.privacy-lens-title p {
-  margin: 4px 0 0;
-  font-size: 14px;
-  opacity: 0.9;
+  width: 245px;
+  height: 70px;
+  object-fit: contain;
 }
 
 .privacy-lens-controls {
@@ -66,17 +50,16 @@ const modalStyles = `
 .privacy-lens-button {
   background: none;
   border: none;
-  
   cursor: pointer;
   padding: 4px;
   font-size: 20px;
-  opacity: 1;
-  transition: opacity 0.2s;
+  color: #6141AC;
   width: 24px;
   height: 24px;
   display: flex;
   align-items: center;
   justify-content: center;
+  transition: opacity 0.2s;
 }
 
 .privacy-lens-button:hover {
@@ -84,79 +67,77 @@ const modalStyles = `
 }
 
 .privacy-lens-content {
-  padding: 16px;
-  background-color: rgba(179, 218, 222, 0.1); /* Very light tint of #B3DADE */
+  padding: 10px 5px 0px 5px;
+  /*background-color: rgba(179, 218, 222, 0.1);*/
 }
 
-.privacy-lens-content h3 {
-  margin: 0 0 16px;
+.privacy-lens-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 16px;
+}
+
+.privacy-lens-table th {
+  text-align: left;
   color: #6141AC;
+  padding: 0 8px 8px 8px;
   font-weight: 600;
+  font-size: 14px;
 }
 
-.privacy-lens-list {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
+.privacy-lens-table td {
+  padding: 4px;
+  vertical-align: middle;
 }
 
-.privacy-lens-item {
-  display: flex;
-  align-items: left;
-  justify-content: space-between;
-  
-}
-
-.privacy-lens-domain {
+.privacy-lens-domain-cell {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 8px;
   color: #4282AA;
+  font-size: small;
 }
 
 .privacy-lens-favicon {
   width: 16px;
   height: 16px;
-  margin-right: 10px;
-  text-align: left;
 }
 
-.privacy-lens-domainText {
-  color: #4282AA;
-  flexgrow: 1;
-  text-align: left;
-}
-
-.privacy-lens-risk {
+.privacy-lens-rating {
+  text-align: right;
   font-weight: 600;
+  font-size: small;
 }
 
-.privacy-lens-risk.high {
-  color:rgb(239, 152, 152);
+.privacy-lens-rating.strong {
+  color: #78BF26;
 }
 
-.privacy-lens-risk.medium {
-  color:rgb(217, 175, 127);
+.privacy-lens-rating.moderate {
+  color: #FFA500;
 }
 
-.privacy-lens-risk.low {
-  color:rgb(118, 158, 145);
+.privacy-lens-rating.weak {
+  color: #DE0E3F;
 }
 
 .privacy-lens-footer {
-  margin-top: 24px;
-  text-align: center;
+  padding: 8px 8px 8px 8px;
+  border-radius: 0 0 8px 8px;
+  display: flex;
+  align-items: center;
+  border-top: 1px solid rgba(179, 218, 222, 0.5);
+  font-size: smaller;
+  color: #6141AC;
 }
 
 .privacy-lens-link {
-  display: inline-flex;
-  align-items: center;
-  color: #4282AA;
   text-decoration: none;
-  margin-bottom: 16px;
+  color: #6141AC;
+}
+  
+a:visited {
+  color: #6141AC;
 }
 
 .privacy-lens-link:hover {
@@ -164,20 +145,13 @@ const modalStyles = `
 }
 
 .privacy-lens-feedback {
-  border-top: 1px solid rgba(179, 218, 222, 0.5);
-  padding-top: 16px;
-}
-
-.privacy-lens-feedback p {
-  margin: 0 0 8px;
-  color: #6141AC;
-  font-size: 14px;
-}
-
-.privacy-lens-feedback-buttons {
   display: flex;
-  justify-content: center;
-  gap: 16px;
+  align-items: center;
+  gap: 8px;
+}
+
+.privacy-lens-feedback span {
+  font-size: smaller;
 }
 
 .privacy-lens-feedback-button {
@@ -185,8 +159,9 @@ const modalStyles = `
   border: none;
   color: #4282AA;
   cursor: pointer;
-  padding: 8px;
+  padding: 4px;
   transition: transform 0.2s;
+  font-size: smaller;
 }
 
 .privacy-lens-feedback-button:hover {
@@ -201,9 +176,8 @@ function getExtensionURL(path) {
 
 // Modal HTML template
 function createModalHTML() {
-
   const logoUrl = getExtensionURL('images/privacy_lens_logo.png');
-
+  
   return `
     <div class="privacy-lens-modal" id="privacyLensModal">
       <div class="privacy-lens-header" id="privacyLensModalHeader">
@@ -212,7 +186,6 @@ function createModalHTML() {
             src="${logoUrl}"
             alt="PrivacyLens Logo"
             class="privacy-lens-logo"
-            style="width: 245px; height: 70px; object-fit: contain;"
           />
         </div>
         <div class="privacy-lens-controls">
@@ -221,21 +194,27 @@ function createModalHTML() {
         </div>
       </div>
       <div class="privacy-lens-content">
-          <h3>Websites & their Privacy Scores</h3>
-          <ul id="domain-list" class="privacy-lens-list"></ul>
-
-           <div class="privacy-lens-footer">
-            <a href="https://www.privacylens.info" target="_blank" rel="noopener noreferrer" class="privacy-lens-link">
-              Click here for detailed results →
-            </a>
-            <div id="feedback" class="privacy-lens-feedback">
-              <p>Was this helpful?</p>
-              <div class="privacy-lens-feedback-buttons">
-                <button class="privacy-lens-feedback-button">👍</button>
-                <button class="privacy-lens-feedback-button">👎</button>
-              </div>
-            </div>
-          </div>
+        <table class="privacy-lens-table">
+          <thead>
+            <tr>
+              <th>Website</th>
+              <th style="text-align: right">Privacy</th>
+            </tr>
+          </thead>
+          <tbody id="domain-list"></tbody>
+        </table>
+      </div>
+      <div class="privacy-lens-footer">
+        <table width="100%"><tr><td align="left">
+        <a href="https://www.privacylens.info" target="_blank" rel="noopener noreferrer" class="privacy-lens-link">
+          View detailed results
+        </a>
+        </td>
+        <td align="right">
+        <span>Was this helpful?</span>
+        <button class="privacy-lens-feedback-button">👍</button>
+        <button class="privacy-lens-feedback-button">👎</button>
+        </td></tr></table>
       </div>
     </div>
   `;
@@ -368,36 +347,45 @@ function populateDomainList(domains) {
           rating.domain_name.toLowerCase() === domain.toLowerCase()
         );
 
-        const li = document.createElement("li");
-        li.className = "privacy-lens-item";
-
-        const div = document.createElement("div");
-        div.className = "privacy-lens-domain";
-
+        const tr = document.createElement("tr");
+        
+        // Domain cell with favicon
+        const domainTd = document.createElement("td");
+        const domainDiv = document.createElement("div");
+        domainDiv.className = "privacy-lens-domain-cell";
+        
         const favicon = document.createElement("img");
         favicon.src = `https://t2.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=http://${domain}&size=16`;
         favicon.className = "privacy-lens-favicon";
-
+        
         const domainText = document.createElement("span");
-        domainText.className = "privacy-lens-domainText";
         domainText.textContent = domain;
-
-        const riskText = document.createElement("span");
+        
+        domainDiv.appendChild(favicon);
+        domainDiv.appendChild(domainText);
+        domainTd.appendChild(domainDiv);
+        
+        // Rating cell
+        const ratingTd = document.createElement("td");
+        ratingTd.className = "privacy-lens-rating";
+        
         if (ratingData) {
-          riskText.textContent = ratingData.riskLevel;
-          riskText.style.color = ratingData.color;
+          const riskLevel = ratingData.riskLevel.toLowerCase();
+          let rating;
+          if (riskLevel === "high risk") rating = "weak";
+          else if (riskLevel === "medium risk") rating = "moderate";
+          else rating = "strong";
+          
+          ratingTd.textContent = rating;
+          ratingTd.classList.add(rating);
         } else {
-          riskText.textContent = "Unknown";
-          riskText.style.color = "gray";
+          ratingTd.textContent = "Unknown";
+          ratingTd.style.color = "gray";
         }
-        riskText.style.fontWeight = "bold";
-        riskText.style.marginLeft = "8px";
-
-        li.appendChild(div);
-        li.appendChild(favicon);
-        li.appendChild(domainText);
-        li.appendChild(riskText);
-        domainList.appendChild(li);
+        
+        tr.appendChild(domainTd);
+        tr.appendChild(ratingTd);
+        domainList.appendChild(tr);
       });
     }
   })
