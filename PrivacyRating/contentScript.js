@@ -8,19 +8,18 @@ const modalStyles = `
   top: 20px;
   right: 20px;
   width: 350px;
-  background: #ffffff;
+  background: white;
   border-radius: 12px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
   z-index: 10000;
   transition: transform 0.3s ease;
   max-height: calc(100vh - 40px);
   overflow-y: auto;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
-  transform: translate3d(0, 0, 0);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 }
 
 .privacy-lens-modal.minimized {
-  transform: translate3d(310px, var(--drag-y, 0px), 0) !important;
+  transform: translateX(calc(100% - 40px));
 }
 
 .privacy-lens-modal.minimized .privacy-lens-modal-header {
@@ -42,7 +41,7 @@ const modalStyles = `
 }
 
 .privacy-lens-modal-header {
-  background: linear-gradient(135deg, #1a73e8, #0052cc);
+  /*background: linear-gradient(135deg, #0073e6 0%, #005bb8 100%);*/
   color: white;
   padding: 12px 16px;
   border-radius: 12px 12px 0 0;
@@ -65,17 +64,28 @@ const modalStyles = `
   opacity: 0.9;
 }
 
+.privacy-lens-logo-section {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.privacy-lens-logo {
+  width: 32px;
+  height: 32px;
+}
+
 .privacy-lens-controls {
   display: flex;
   gap: 8px;
 }
 
 .privacy-lens-button {
-  background: rgba(255, 255, 255, 0.1);
+  /*background: rgba(255, 255, 255, 0.1);*/
   border: none;
-  color: white;
+  /*color: white;*/
   cursor: pointer;
-  padding: 6px 10px;
+  padding: 4px 8px;
   font-size: 16px;
   border-radius: 4px;
   transition: background 0.2s ease;
@@ -86,7 +96,7 @@ const modalStyles = `
 }
 
 .privacy-lens-modal-content {
-  padding: 20px;
+  padding: 16px;
 }
 
 .privacy-lens-modal-content h3 {
@@ -107,11 +117,11 @@ const modalStyles = `
   align-items: center;
   padding: 12px;
   border-bottom: 1px solid #eef1f5;
-  transition: background 0.2s ease;
+  transition: background-color 0.2s ease;
 }
 
 #domain-list li:hover {
-  background: #f8f9fa;
+  background: #f5f8ff;
 }
 
 #domain-list li img {
@@ -158,14 +168,26 @@ const modalStyles = `
 }
 `;
 
+// Modal styles remain the same as before, just adding this new function
+function getExtensionURL(path) {
+  return chrome.runtime.getURL(path);
+}
+
 // Modal HTML template
 function createModalHTML() {
+
+  const logoUrl = getExtensionURL('images/privacy_lens_logo.png');
+
   return `
     <div class="privacy-lens-modal" id="privacyLensModal">
       <div class="privacy-lens-modal-header" id="privacyLensModalHeader">
-        <div>
-          <h2 style="margin: 0; font-size: 16px;">PrivacyLens</h2>
-          <p style="margin: 4px 0 0; font-size: 12px;">Your privacy companion for safer browsing</p>
+        <div class="privacy-lens-logo-section">
+          <img 
+            src="${logoUrl}"
+            alt="PrivacyLens Logo"
+            class="privacy-lens-logo"
+            style="width: 245px; height: 70px; object-fit: contain;"
+          />
         </div>
         <div class="privacy-lens-controls">
           <button class="privacy-lens-button" id="minimizeModal">−</button>
@@ -174,13 +196,13 @@ function createModalHTML() {
       </div>
       <div class="privacy-lens-modal-content">
         <div id="site-list">
-          <h3 style="margin-top: 0;">Websites & their Privacy Scores</h3>
-          <ul id="domain-list" style="list-style: none; padding: 0;"></ul>
+          <h3 style="margin-top: 0; color: #0073e6; font-size: 16px;">Websites & their Privacy Scores</h3>
+          <ul id="domain-list" style="list-style: none; padding: 0; margin: 12px 0;"></ul>
         </div>
-        <div id="feedback" style="margin-top: 16px; text-align: center;">
-          <p style="margin: 0 0 8px;">Was this helpful?</p>
-          <button id="thumbs-up" style="font-size: 1.2em; margin: 0 4px;">👍</button>
-          <button id="thumbs-down" style="font-size: 1.2em; margin: 0 4px;">👎</button>
+        <div id="feedback" style="margin-top: 16px; text-align: center; border-top: 1px solid #eee; padding-top: 16px;">
+          <p style="margin: 0 0 8px; color: #666;">Was this helpful?</p>
+          <button id="thumbs-up" style="font-size: 1.2em; margin: 0 4px; background: none; border: none; cursor: pointer;">👍</button>
+          <button id="thumbs-down" style="font-size: 1.2em; margin: 0 4px; background: none; border: none; cursor: pointer;">👎</button>
         </div>
       </div>
     </div>
@@ -388,18 +410,18 @@ if (query) {
           
           console.log("Extracted domains:", domains);
           
-          fetch(appUrl + "/domains", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ domains })
-          })
-            .then(response => response.json())
-            .then(apiResponse => {
-              console.log("Backend domains response:", apiResponse);
-            })
-            .catch(error => {
-              console.error("Error sending domains to backend:", error);
-            });
+          // fetch(appUrl + "/domains", {
+          //   method: "POST",
+          //   headers: { "Content-Type": "application/json" },
+          //   body: JSON.stringify({ domains })
+          // })
+          //   .then(response => response.json())
+          //   .then(apiResponse => {
+          //     console.log("Backend domains response:", apiResponse);
+          //   })
+          //   .catch(error => {
+          //     console.error("Error sending domains to backend:", error);
+          //   });
           
           // Inject the modal directly
           injectModal(domains);

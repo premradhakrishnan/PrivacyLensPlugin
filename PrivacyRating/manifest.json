@@ -13,5 +13,12 @@
         "contentScript.js"
       ]
     }
-  ]
+  ],
+  "web_accessible_resources": [{
+    "resources": [
+      "images/privacy_lens_logo.png",
+      "images/privacy_lens_icon.png"
+    ],
+    "matches": ["https://www.google.com/*"]
+  }]
 }
