@@ -1,6 +1,7 @@
 // contentScript.js
 
 // Modal styles
+// Updated modal styles
 const modalStyles = `
 .privacy-lens-modal {
   position: fixed;
@@ -11,14 +12,15 @@ const modalStyles = `
   border-radius: 12px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
   z-index: 10000;
-  transition: all 0.3s ease;
+  transition: transform 0.3s ease;
   max-height: calc(100vh - 40px);
   overflow-y: auto;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+  transform: translate3d(0, 0, 0);
 }
 
 .privacy-lens-modal.minimized {
-  transform: translateX(calc(100% - 40px));
+  transform: translate3d(310px, var(--drag-y, 0px), 0) !important;
 }
 
 .privacy-lens-modal.minimized .privacy-lens-modal-header {
@@ -186,6 +188,7 @@ function createModalHTML() {
 }
 
 // Function to inject and initialize modal
+// Function to inject and initialize modal
 function injectModal(domains) {
   // Add styles
   const styleSheet = document.createElement('style');
@@ -213,13 +216,23 @@ function injectModal(domains) {
   let yOffset = 0;
 
   header.addEventListener('mousedown', dragStart);
+  header.addEventListener('click', (e) => {
+    if (modal.classList.contains('minimized') && e.target !== minimizeBtn) {
+        toggleMinimized(e);
+    }
+});
+
   document.addEventListener('mousemove', drag);
   document.addEventListener('mouseup', dragEnd);
 
   function dragStart(e) {
+    // Don't start drag if clicking minimize/close buttons
+    if (e.target === minimizeBtn || e.target === closeBtn) {
+      return;
+    }
     initialX = e.clientX - xOffset;
     initialY = e.clientY - yOffset;
-    if (e.target === header) {
+    if (e.target === header || header.contains(e.target)) {
       isDragging = true;
     }
   }
@@ -236,7 +249,12 @@ function injectModal(domains) {
   }
 
   function setTranslate(xPos, yPos, el) {
-    el.style.transform = `translate3d(${xPos}px, ${yPos}px, 0)`;
+    // Store the Y position as a CSS variable for use in minimized state
+    el.style.setProperty('--drag-y', `${yPos}px`);
+    
+    if (!el.classList.contains('minimized')) {
+      el.style.transform = `translate3d(${xPos}px, ${yPos}px, 0)`;
+    }
   }
 
   function dragEnd() {
@@ -244,10 +262,28 @@ function injectModal(domains) {
   }
 
   // Minimize/maximize functionality
-  minimizeBtn.addEventListener('click', () => {
+  function toggleMinimized(e) {
+    if (isDragging) return; // Prevent toggling while dragging
+
     modal.classList.toggle('minimized');
     minimizeBtn.textContent = modal.classList.contains('minimized') ? '+' : '−';
-  });
+
+    // Update transform to correctly restore position
+    modal.style.transform = modal.classList.contains('minimized') 
+        ? 'translate3d(310px, 0, 0)' 
+        : `translate3d(${xOffset}px, ${yOffset}px, 0)`;
+
+    console.log("Modal state changed. Minimized:", modal.classList.contains('minimized'));
+}
+
+  
+
+  // Add event listeners for minimize/maximize
+  minimizeBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    toggleMinimized(e);
+});
+
 
   // Close functionality
   closeBtn.addEventListener('click', () => {
@@ -255,7 +291,12 @@ function injectModal(domains) {
     styleSheet.remove();
   });
 
-  // Populate domain list
+  // Initialize domain list population
+  populateDomainList(domains);
+}
+
+// Separate function to populate domain list
+function populateDomainList(domains) {
   const domainList = document.getElementById('domain-list');
   const appUrl = config.appUrl;
 
