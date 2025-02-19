@@ -1,0 +1,17 @@
+{
+  "manifest_version": 3,
+  "name": "PrivacyLens Health Query Detector",
+  "version": "1.0",
+  "description": "Detects health-related queries and displays privacy ratings for search result domains.",
+  "permissions": ["activeTab", "scripting"],
+  "host_permissions": ["https://www.google.com/*"],
+  "content_scripts": [
+    {
+      "matches": ["https://www.google.com/search*"],
+      "js": [
+        "config.js",
+        "contentScript.js"
+      ]
+    }
+  ]
+}
