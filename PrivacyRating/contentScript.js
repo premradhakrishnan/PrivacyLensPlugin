@@ -7,72 +7,55 @@ const modalStyles = `
   position: fixed;
   top: 20px;
   right: 20px;
-  width: 350px;
+  width: 384px; /* w-96 equivalent */
   background: white;
-  border-radius: 12px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  border-radius: 8px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
   z-index: 10000;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   transition: transform 0.3s ease;
-  max-height: calc(100vh - 40px);
-  overflow-y: auto;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 }
 
 .privacy-lens-modal.minimized {
   transform: translateX(calc(100% - 40px));
 }
 
-.privacy-lens-modal.minimized .privacy-lens-modal-header {
-  cursor: pointer;
-}
-
-.privacy-lens-modal.minimized::after {
-  content: 'Click to restore';
-  position: absolute;
-  left: 40px;
-  top: 50%;
-  transform: rotate(-90deg) translateX(-50%);
-  transform-origin: 0 0;
-  color: #ffffff;
-  font-size: 12px;
-  white-space: nowrap;
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
-  pointer-events: none;
-}
-
-.privacy-lens-modal-header {
-  /*background: linear-gradient(135deg, #0073e6 0%, #005bb8 100%);*/
-  color: white;
-  padding: 12px 16px;
-  border-radius: 12px 12px 0 0;
+.privacy-lens-header {
+  padding: 16px;
+  border-radius: 8px 8px 0 0;
+  background-color: #F8F7FF;
+  /*background: linear-gradient(135deg, #4282AA 0%, #6141AC 100%);*/
   display: flex;
   justify-content: space-between;
-  align-items: center;
-  cursor: move;
+  align-items: flex-start;
+  border-bottom: 1px solid rgba(179, 218, 222, 0.5);
 }
 
-.privacy-lens-modal-header h2 {
-  margin: 0;
-  font-size: 18px;
-  font-weight: 600;
-  letter-spacing: 0.2px;
-}
-
-.privacy-lens-modal-header p {
-  margin: 4px 0 0;
-  font-size: 13px;
-  opacity: 0.9;
-}
-
-.privacy-lens-logo-section {
+.privacy-lens-header-content {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 16px;
 }
 
 .privacy-lens-logo {
-  width: 32px;
-  height: 32px;
+  width: 48px;
+  height: 48px;
+}
+
+.privacy-lens-title {
+  color: white;
+}
+
+.privacy-lens-title h2 {
+  margin: 0;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.privacy-lens-title p {
+  margin: 4px 0 0;
+  font-size: 14px;
+  opacity: 0.9;
 }
 
 .privacy-lens-controls {
@@ -81,90 +64,133 @@ const modalStyles = `
 }
 
 .privacy-lens-button {
-  /*background: rgba(255, 255, 255, 0.1);*/
+  background: none;
   border: none;
-  /*color: white;*/
+  
   cursor: pointer;
-  padding: 4px 8px;
-  font-size: 16px;
-  border-radius: 4px;
-  transition: background 0.2s ease;
+  padding: 4px;
+  font-size: 20px;
+  opacity: 1;
+  transition: opacity 0.2s;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .privacy-lens-button:hover {
-  background: rgba(255, 255, 255, 0.2);
+  opacity: 0.8;
 }
 
-.privacy-lens-modal-content {
+.privacy-lens-content {
   padding: 16px;
+  background-color: rgba(179, 218, 222, 0.1); /* Very light tint of #B3DADE */
 }
 
-.privacy-lens-modal-content h3 {
-  color: #1a73e8;
-  font-size: 16px;
+.privacy-lens-content h3 {
   margin: 0 0 16px;
+  color: #6141AC;
   font-weight: 600;
 }
 
-#domain-list {
+.privacy-lens-list {
   list-style: none;
   padding: 0;
   margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
 }
 
-#domain-list li {
+.privacy-lens-item {
+  display: flex;
+  align-items: left;
+  justify-content: space-between;
+  
+}
+
+.privacy-lens-domain {
   display: flex;
   align-items: center;
-  padding: 12px;
-  border-bottom: 1px solid #eef1f5;
-  transition: background-color 0.2s ease;
+  gap: 12px;
+  color: #4282AA;
 }
 
-#domain-list li:hover {
-  background: #f5f8ff;
+.privacy-lens-favicon {
+  width: 16px;
+  height: 16px;
+  margin-right: 10px;
+  text-align: left;
 }
 
-#domain-list li img {
-  margin-right: 12px;
-  border-radius: 3px;
+.privacy-lens-domainText {
+  color: #4282AA;
+  flexgrow: 1;
+  text-align: left;
 }
 
-#domain-list li span {
-  color: #1f2937;
-  font-size: 14px;
-}
-
-#domain-list li span:last-child {
+.privacy-lens-risk {
   font-weight: 600;
-  margin-left: auto;
 }
 
-#feedback {
+.privacy-lens-risk.high {
+  color:rgb(239, 152, 152);
+}
+
+.privacy-lens-risk.medium {
+  color:rgb(217, 175, 127);
+}
+
+.privacy-lens-risk.low {
+  color:rgb(118, 158, 145);
+}
+
+.privacy-lens-footer {
   margin-top: 24px;
-  padding-top: 16px;
-  border-top: 1px solid #eef1f5;
   text-align: center;
 }
 
-#feedback p {
-  color: #4b5563;
+.privacy-lens-link {
+  display: inline-flex;
+  align-items: center;
+  color: #4282AA;
+  text-decoration: none;
+  margin-bottom: 16px;
+}
+
+.privacy-lens-link:hover {
+  text-decoration: underline;
+}
+
+.privacy-lens-feedback {
+  border-top: 1px solid rgba(179, 218, 222, 0.5);
+  padding-top: 16px;
+}
+
+.privacy-lens-feedback p {
+  margin: 0 0 8px;
+  color: #6141AC;
   font-size: 14px;
-  margin: 0 0 12px;
 }
 
-#feedback button {
+.privacy-lens-feedback-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+}
+
+.privacy-lens-feedback-button {
   background: none;
-  border: 1px solid #e5e7eb;
-  padding: 8px 16px;
-  border-radius: 6px;
+  border: none;
+  color: #4282AA;
   cursor: pointer;
-  transition: all 0.2s ease;
-  margin: 0 4px;
+  padding: 8px;
+  transition: transform 0.2s;
 }
 
-#feedback button:hover {
-  background: #f8f9fa;
-  transform: translateY(-1px);
+.privacy-lens-feedback-button:hover {
+  transform: scale(1.1);
 }
 `;
 
@@ -180,8 +206,8 @@ function createModalHTML() {
 
   return `
     <div class="privacy-lens-modal" id="privacyLensModal">
-      <div class="privacy-lens-modal-header" id="privacyLensModalHeader">
-        <div class="privacy-lens-logo-section">
+      <div class="privacy-lens-header" id="privacyLensModalHeader">
+        <div class="privacy-lens-header-content">
           <img 
             src="${logoUrl}"
             alt="PrivacyLens Logo"
@@ -194,16 +220,22 @@ function createModalHTML() {
           <button class="privacy-lens-button" id="closeModal">×</button>
         </div>
       </div>
-      <div class="privacy-lens-modal-content">
-        <div id="site-list">
-          <h3 style="margin-top: 0; color: #0073e6; font-size: 16px;">Websites & their Privacy Scores</h3>
-          <ul id="domain-list" style="list-style: none; padding: 0; margin: 12px 0;"></ul>
-        </div>
-        <div id="feedback" style="margin-top: 16px; text-align: center; border-top: 1px solid #eee; padding-top: 16px;">
-          <p style="margin: 0 0 8px; color: #666;">Was this helpful?</p>
-          <button id="thumbs-up" style="font-size: 1.2em; margin: 0 4px; background: none; border: none; cursor: pointer;">👍</button>
-          <button id="thumbs-down" style="font-size: 1.2em; margin: 0 4px; background: none; border: none; cursor: pointer;">👎</button>
-        </div>
+      <div class="privacy-lens-content">
+          <h3>Websites & their Privacy Scores</h3>
+          <ul id="domain-list" class="privacy-lens-list"></ul>
+
+           <div class="privacy-lens-footer">
+            <a href="https://www.privacylens.info" target="_blank" rel="noopener noreferrer" class="privacy-lens-link">
+              Click here for detailed results →
+            </a>
+            <div id="feedback" class="privacy-lens-feedback">
+              <p>Was this helpful?</p>
+              <div class="privacy-lens-feedback-buttons">
+                <button class="privacy-lens-feedback-button">👍</button>
+                <button class="privacy-lens-feedback-button">👎</button>
+              </div>
+            </div>
+          </div>
       </div>
     </div>
   `;
@@ -337,20 +369,18 @@ function populateDomainList(domains) {
         );
 
         const li = document.createElement("li");
-        li.style.display = 'flex';
-        li.style.alignItems = 'center';
-        li.style.padding = '8px 0';
-        li.style.borderBottom = '1px solid #eee';
+        li.className = "privacy-lens-item";
+
+        const div = document.createElement("div");
+        div.className = "privacy-lens-domain";
 
         const favicon = document.createElement("img");
         favicon.src = `https://t2.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=http://${domain}&size=16`;
-        favicon.style.marginRight = '8px';
-        favicon.width = 16;
-        favicon.height = 16;
+        favicon.className = "privacy-lens-favicon";
 
         const domainText = document.createElement("span");
+        domainText.className = "privacy-lens-domainText";
         domainText.textContent = domain;
-        domainText.style.flexGrow = '1';
 
         const riskText = document.createElement("span");
         if (ratingData) {
@@ -363,6 +393,7 @@ function populateDomainList(domains) {
         riskText.style.fontWeight = "bold";
         riskText.style.marginLeft = "8px";
 
+        li.appendChild(div);
         li.appendChild(favicon);
         li.appendChild(domainText);
         li.appendChild(riskText);
@@ -409,19 +440,6 @@ if (query) {
           }).filter(domain => domain !== null);
           
           console.log("Extracted domains:", domains);
-          
-          // fetch(appUrl + "/domains", {
-          //   method: "POST",
-          //   headers: { "Content-Type": "application/json" },
-          //   body: JSON.stringify({ domains })
-          // })
-          //   .then(response => response.json())
-          //   .then(apiResponse => {
-          //     console.log("Backend domains response:", apiResponse);
-          //   })
-          //   .catch(error => {
-          //     console.error("Error sending domains to backend:", error);
-          //   });
           
           // Inject the modal directly
           injectModal(domains);
