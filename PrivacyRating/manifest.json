@@ -1,24 +1,50 @@
 {
   "manifest_version": 3,
-  "name": "PrivacyLens Health Query Detector",
-  "version": "1.0",
+  "name": "PrivacyLens - Health Site Privacy Checker",
+  "version": "1.1",
   "description": "Detects health-related queries and displays privacy ratings for search result domains.",
-  "permissions": ["activeTab", "scripting"],
-  "host_permissions": ["https://www.google.com/*"],
+  "icons": {
+    "16": "images/privacy_lens_icon16.png",
+    "32": "images/privacy_lens_icon32.png",
+    "48": "images/privacy_lens_icon48.png",
+    "128": "images/privacy_lens_icon128.png"
+  },
+  "action": {
+    "default_icon": {
+      "16": "images/privacy_lens_icon16.png",
+      "32": "images/privacy_lens_icon32.png",
+      "48": "images/privacy_lens_icon48.png"
+    },
+    "default_title": "PrivacyLens"
+  },
+  "permissions": [
+    "activeTab",
+    "scripting"
+  ],
+  "host_permissions": [
+    "https://www.google.com/*"
+  ],
   "content_scripts": [
     {
-      "matches": ["https://www.google.com/search*"],
+      "matches": [
+        "https://www.google.com/search*"
+      ],
       "js": [
         "config.js",
         "contentScript.js"
       ]
     }
   ],
-  "web_accessible_resources": [{
-    "resources": [
-      "images/privacy_lens_logo.png",
-      "images/privacy_lens_icon.png"
-    ],
-    "matches": ["https://www.google.com/*"]
-  }]
+  "web_accessible_resources": [
+    {
+      "resources": [
+        "images/privacy_lens_logo.png",
+        "images/privacy_lens_icon.png",
+        "images/loading.gif"
+      ],
+      "matches": [
+        "https://www.google.com/*"
+      ]
+    }
+  ]
 }

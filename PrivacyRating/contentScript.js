@@ -177,7 +177,8 @@ function getExtensionURL(path) {
 // Modal HTML template
 function createModalHTML() {
   const logoUrl = getExtensionURL('images/privacy_lens_logo.png');
-  
+  const appUrl = config.appUrl;
+
   return `
     <div class="privacy-lens-modal" id="privacyLensModal">
       <div class="privacy-lens-header" id="privacyLensModalHeader">
@@ -206,7 +207,7 @@ function createModalHTML() {
       </div>
       <div class="privacy-lens-footer">
         <table width="100%"><tr><td align="left">
-        <a href="https://www.privacylens.info" target="_blank" rel="noopener noreferrer" class="privacy-lens-link">
+        <a id="detailed-results-link" href="${appUrl}/detailed-results" target="_blank" rel="noopener noreferrer" class="privacy-lens-link">
           View detailed results
         </a>
         </td>
@@ -238,7 +239,7 @@ function injectModal(domains) {
   const header = document.getElementById('privacyLensModalHeader');
   const minimizeBtn = document.getElementById('minimizeModal');
   const closeBtn = document.getElementById('closeModal');
-  
+
   // Make modal draggable
   let isDragging = false;
   let currentX;
@@ -251,9 +252,9 @@ function injectModal(domains) {
   header.addEventListener('mousedown', dragStart);
   header.addEventListener('click', (e) => {
     if (modal.classList.contains('minimized') && e.target !== minimizeBtn) {
-        toggleMinimized(e);
+      toggleMinimized(e);
     }
-});
+  });
 
   document.addEventListener('mousemove', drag);
   document.addEventListener('mouseup', dragEnd);
@@ -284,7 +285,7 @@ function injectModal(domains) {
   function setTranslate(xPos, yPos, el) {
     // Store the Y position as a CSS variable for use in minimized state
     el.style.setProperty('--drag-y', `${yPos}px`);
-    
+
     if (!el.classList.contains('minimized')) {
       el.style.transform = `translate3d(${xPos}px, ${yPos}px, 0)`;
     }
@@ -302,20 +303,20 @@ function injectModal(domains) {
     minimizeBtn.textContent = modal.classList.contains('minimized') ? '+' : '−';
 
     // Update transform to correctly restore position
-    modal.style.transform = modal.classList.contains('minimized') 
-        ? 'translate3d(310px, 0, 0)' 
-        : `translate3d(${xOffset}px, ${yOffset}px, 0)`;
+    modal.style.transform = modal.classList.contains('minimized')
+      ? 'translate3d(310px, 0, 0)'
+      : `translate3d(${xOffset}px, ${yOffset}px, 0)`;
 
     console.log("Modal state changed. Minimized:", modal.classList.contains('minimized'));
-}
+  }
 
-  
+
 
   // Add event listeners for minimize/maximize
   minimizeBtn.addEventListener('click', (e) => {
     e.stopPropagation();
     toggleMinimized(e);
-});
+  });
 
 
   // Close functionality
@@ -325,23 +326,50 @@ function injectModal(domains) {
   });
 
   // Initialize domain list population
+  startAutoPopulate(domains);
+}
+
+function startAutoPopulate(domains) {
+  // Initial call
   populateDomainList(domains);
+
+  // Repeat every 60 seconds
+  setInterval(() => {
+    console.log("Re-populating domain list...");
+    populateDomainList(domains);
+  }, 60 * 1000);
 }
 
 // Separate function to populate domain list
 function populateDomainList(domains) {
   const domainList = document.getElementById('domain-list');
+  domainList.innerHTML = "";
+  const hubUrl = config.hubUrl;
   const appUrl = config.appUrl;
+  const detailedResultsLink = document.getElementById('detailed-results-link');
 
-  fetch(appUrl + '/privacyRating', {
+  // 1) Remove duplicates so each domain is only shown once
+  const uniqueDomains = [...new Set(domains)];
+
+  // Update the detailed results link with unique domains
+  const domainParams = uniqueDomains.map(domain => `domains[]=${encodeURIComponent(domain)}`).join('&');
+  detailedResultsLink.href = appUrl + `/detailed-results?${domainParams}`;
+
+  // Fetch ratings for the unique domains
+  fetch(hubUrl + '/privacyRating', {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ domains })
+    // Send uniqueDomains to the server
+    body: JSON.stringify({ domains: uniqueDomains })
   })
   .then(res => res.json())
   .then(responseJson => {
     if (responseJson.status === "success" && Array.isArray(responseJson.data)) {
-      domains.forEach(domain => {
+      // 2) Iterate over uniqueDomains instead of the original array
+      uniqueDomains.forEach(domain => {
+        console.log(domain);
+        
+        // Try to find a matching rating for this domain
         const ratingData = responseJson.data.find(rating =>
           rating.domain_url.includes(domain) ||
           rating.domain_name.toLowerCase() === domain.toLowerCase()
@@ -369,17 +397,20 @@ function populateDomainList(domains) {
         const ratingTd = document.createElement("td");
         ratingTd.className = "privacy-lens-rating";
         
-        if (ratingData) {
+        if (ratingData && ratingData.riskLevel) {
           const riskLevel = ratingData.riskLevel.toLowerCase();
-          let rating;
-          if (riskLevel === "high risk") rating = "weak";
-          else if (riskLevel === "medium risk") rating = "moderate";
-          else rating = "strong";
-          
-          ratingTd.textContent = rating;
-          ratingTd.classList.add(rating);
+          ratingTd.textContent = riskLevel;
+          ratingTd.classList.add(riskLevel);
         } else {
-          ratingTd.textContent = "Unknown";
+          // 2) Show “loading” message/spinner instead of "Unknown"
+          ratingTd.innerHTML = `
+            <img 
+              src="images/loading.gif" 
+              alt="Calculating..." 
+              style="width:16px; height:16px; vertical-align:middle;"
+            />
+            <span style="margin-left:8px;">Calculating...</span>
+          `;
           ratingTd.style.color = "gray";
         }
         
@@ -392,23 +423,25 @@ function populateDomainList(domains) {
   .catch(err => console.error("Error fetching privacy ratings:", err));
 }
 
+
 // Main content script logic
 const urlParams = new URLSearchParams(window.location.search);
 const query = urlParams.get('q');
-const appUrl = config.appUrl;
+const hubUrl = config.hubUrl;
 
 if (query) {
-  fetch(appUrl + "/classify", {
+  fetch(hubUrl + "/classify", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ query })
+    body: JSON.stringify({ query }),
+    mode: "cors"
   })
     .then(response => response.json())
     .then(data => {
       if (data && data.classification) {
         if (data.classification.toLowerCase() === "health related") {
           console.log("Health-related query detected:", query);
-          
+
           const resultElements = document.querySelectorAll("div.g");
           const urls = Array.from(resultElements)
             .map(result => {
@@ -416,7 +449,7 @@ if (query) {
               return link ? link.href : null;
             })
             .filter(url => url !== null);
-          
+
           const domains = urls.map(url => {
             try {
               const urlObj = new URL(url);
@@ -426,9 +459,9 @@ if (query) {
               return null;
             }
           }).filter(domain => domain !== null);
-          
+
           console.log("Extracted domains:", domains);
-          
+
           // Inject the modal directly
           injectModal(domains);
         } else {
