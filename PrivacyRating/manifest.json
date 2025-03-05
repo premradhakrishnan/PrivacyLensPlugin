@@ -1,8 +1,8 @@
 {
   "manifest_version": 3,
   "name": "PrivacyLens - Health Site Privacy Checker",
-  "version": "1.1",
-  "description": "Detects health-related queries and displays privacy ratings for search result domains.",
+  "version": "1.2",
+  "description": "Detects health-related sites and displays privacy ratings for any website.",
   "icons": {
     "16": "images/privacy_lens_icon16.png",
     "32": "images/privacy_lens_icon32.png",
@@ -15,15 +15,18 @@
       "32": "images/privacy_lens_icon32.png",
       "48": "images/privacy_lens_icon48.png"
     },
-    "default_title": "PrivacyLens"
+    "default_title": "Check site privacy"
   },
   "permissions": [
     "activeTab",
     "scripting"
   ],
   "host_permissions": [
-    "https://www.google.com/*"
+    "<all_urls>"
   ],
+  "background": {
+    "service_worker": "background.js"
+  },
   "content_scripts": [
     {
       "matches": [
@@ -31,7 +34,12 @@
       ],
       "js": [
         "config.js",
-        "contentScript.js"
+        "scripts/utils.js",
+        "scripts/styles.js",
+        "scripts/modal.js",
+        "scripts/domainAnalysis.js",
+        "scripts/googleSearch.js",
+        "scripts/contentScript.js"
       ]
     }
   ],
@@ -43,7 +51,7 @@
         "images/loading.gif"
       ],
       "matches": [
-        "https://www.google.com/*"
+        "<all_urls>"
       ]
     }
   ]
