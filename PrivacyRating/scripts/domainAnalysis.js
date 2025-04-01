@@ -14,7 +14,7 @@ PrivacyLens.domainAnalysis = {
     if (!domainList) return;
     
     domainList.innerHTML = "";
-    const hubUrl = PrivacyLensConfig.hubUrl;
+    const apiUrl = PrivacyLensConfig.apiUrl;
     const appUrl = PrivacyLensConfig.appUrl;
     const detailedResultsLink = document.getElementById('detailed-results-link');
 
@@ -26,7 +26,7 @@ PrivacyLens.domainAnalysis = {
     detailedResultsLink.href = `${appUrl}/detailed-results?${domainParams}`;
 
     // Fetch ratings for the unique domains
-    fetch(`${hubUrl}/privacyRating`, {
+    fetch(`${apiUrl}/privacyRating`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ domains: uniqueDomains })
@@ -56,7 +56,7 @@ PrivacyLens.domainAnalysis = {
           favicon.className = "privacy-lens-favicon";
           
           const domainText = document.createElement("span");
-          domainText.textContent = domain;
+          domainText.textContent = domain.substring(0,30)+(domain.length>30?"...":"");
           
           domainDiv.appendChild(favicon);
           domainDiv.appendChild(domainText);
@@ -118,7 +118,7 @@ PrivacyLens.domainAnalysis = {
     const domainList = document.getElementById('domain-list');
     const summaryContent = document.getElementById('privacy-summary-content');
     const summaryTitle = document.querySelector('.privacy-lens-summary-title');
-    const hubUrl = PrivacyLensConfig.hubUrl;
+    const apiUrl = PrivacyLensConfig.apiUrl;
     const appUrl = PrivacyLensConfig.appUrl;
     const detailedResultsLink = document.getElementById('detailed-results-link');
 
@@ -126,7 +126,7 @@ PrivacyLens.domainAnalysis = {
     detailedResultsLink.href = `${appUrl}/detailed-results?domains[]=${encodeURIComponent(domain)}`;
 
     // First check if the site is health-related
-    fetch(`${hubUrl}/isHealthRelated`, {
+    fetch(`${apiUrl}/isHealthRelated`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ url: window.location.href })
@@ -149,7 +149,7 @@ PrivacyLens.domainAnalysis = {
 
 function getRating(){
     // Now get the privacy rating
-    return fetch(`${hubUrl}/privacyRating`, {
+    return fetch(`${apiUrl}/privacyRating`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ domains: [domain] })
@@ -225,9 +225,9 @@ function getRating(){
  * @returns {Promise} Promise that resolves with the detailed domain data
  */
 PrivacyLens.domainAnalysis.fetchDetailedDomainRating = function(domain) {
-    const hubUrl = window.PrivacyLensConfig.hubUrl;
+    const apiUrl = window.PrivacyLensConfig.apiUrl;
     
-    return fetch(`${hubUrl}/privacyRatingSingleDomain`, {
+    return fetch(`${apiUrl}/privacyRatingSingleDomain`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ domain })

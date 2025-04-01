@@ -2,8 +2,8 @@
 
 // Ensure config is defined
 window.PrivacyLensConfig = window.PrivacyLensConfig || {
-    hubUrl: "http://127.0.0.1:8000",
-    appUrl: "http://localhost:5173"
+  apiUrl: "https://api.privacylens.info",
+  appUrl: "https://www.privacylens.info"
   };
   
   // Define PrivacyLens namespace if it doesn't exist
@@ -16,10 +16,13 @@ window.PrivacyLensConfig = window.PrivacyLensConfig || {
      * @returns {string[]} Array of extracted domains
      */
     extractDomainsFromSearchResults: function() {
-      const resultElements = document.querySelectorAll("div.g");
+      const resultElements = document.querySelectorAll("div.yuRUbf");
+      console.log("Search results:", resultElements);
       const urls = Array.from(resultElements)
         .map(result => {
+          console.log("Result:", result);
           const link = result.querySelector("a");
+          console.log("Link:", link);
           return link ? link.href : null;
         })
         .filter(url => url !== null);
@@ -37,7 +40,7 @@ window.PrivacyLensConfig = window.PrivacyLensConfig || {
      * @returns {Promise<boolean>} Promise resolving to true if health-related
      */
     isQueryHealthRelated: function(query) {
-      return fetch(`${PrivacyLensConfig.hubUrl}/classify`, {
+      return fetch(`${PrivacyLensConfig.apiUrl}/classify`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ query }),

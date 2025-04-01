@@ -1,0 +1,369 @@
+{
+    "_id": {
+      "$oid": "67e7014a305e4de4fa85a07a"
+    },
+    "domain": "diabetesaustralia.com.au",
+    "dateCreated": {
+      "$date": "2025-03-28T20:06:34.215Z"
+    },
+    "finalScore": 14,
+    "toBeScraped": false,
+    "toBeClassified": true,
+    "lastAttemptTime": {
+      "$date": "2025-03-28T20:06:55.039Z"
+    },
+    "processing": false,
+    "dateUpdated": {
+      "$date": "2025-03-28T20:09:19.968Z"
+    },
+    "policyLinkNotFound": true,
+    "assessment": {
+      "PrivacyLensAssessmentScore": [
+        {
+          "Enumeration": "1",
+          "section": "Privacy Document Accessibility",
+          "metric": "Privacy Policy Document Present",
+          "question": "Does the website offer a single, comprehensive document referred to as the “privacy policy” which describes the privacy practices of the website?",
+          "score": "2",
+          "justification": "The website offers a comprehensive document referred to as the 'privacy policy' which describes the privacy practices of the website.",
+          "excerpt": "You can access the full Diabetes Australia privacy policy here."
+        },
+        {
+          "Enumeration": "2",
+          "section": "Privacy Document Accessibility",
+          "metric": "Homepage Link to Privacy Policy",
+          "question": "Does the website homepage use the word “privacy” in a link to either the privacy policy or a dedicated section of the website which contains any privacy documents?",
+          "score": "2",
+          "justification": "The homepage uses the word 'privacy' in a link to the privacy policy.",
+          "excerpt": "Privacy policy"
+        },
+        {
+          "Enumeration": "3",
+          "section": "Privacy Document Accessibility",
+          "metric": "Date of Last Update",
+          "question": "Do the privacy documents indicate the last date they were updated?",
+          "score": "0",
+          "justification": "The privacy policy does not indicate the last date it was updated.",
+          "excerpt": ""
+        },
+        {
+          "Enumeration": "4",
+          "section": "Privacy Document Accessibility",
+          "metric": "Change Notifications",
+          "question": "Does the website offer to notify users of changes to the privacy documents?",
+          "score": "0",
+          "justification": "The privacy policy does not mention notifying users of changes.",
+          "excerpt": ""
+        },
+        {
+          "Enumeration": "5",
+          "section": "Privacy Document Scope",
+          "metric": "Unambiguous Collection",
+          "question": "Do the privacy documents contain an unambiguous and clear explanation of the information collected by the website?",
+          "score": "2",
+          "justification": "The privacy policy explains the different types of personal information collected.",
+          "excerpt": "In this policy we explain the different types of personal information we collect."
+        },
+        {
+          "Enumeration": "6",
+          "section": "Privacy Document Scope",
+          "metric": "Exhaustive List of Methods",
+          "question": "Do the privacy documents provide an exhaustive list of methods the website uses to collect information, such as HTTPS cookies and web bugs?",
+          "score": "0",
+          "justification": "The privacy policy does not provide an exhaustive list of methods used to collect information.",
+          "excerpt": ""
+        },
+        {
+          "Enumeration": "7",
+          "section": "Privacy Document Scope",
+          "metric": "State Reasons for Use",
+          "question": "Do the privacy documents state how collected information will be used?",
+          "score": "2",
+          "justification": "The privacy policy states how collected information will be used.",
+          "excerpt": "In this policy we explain... how we may collect and use it."
+        },
+        {
+          "Enumeration": "8",
+          "section": "Privacy Document Scope",
+          "metric": "State Third Parties",
+          "question": "Do the privacy documents state which information will be shared with third parties, and for what purposes?",
+          "score": "2",
+          "justification": "The privacy policy states who the information may be shared with.",
+          "excerpt": "In this policy we explain... who we may share it with."
+        },
+        {
+          "Enumeration": "9",
+          "section": "Privacy Document Scope",
+          "metric": "State Methods of Protection",
+          "question": "Do the privacy documents state any measures taken to protect data in transmission and in storage?",
+          "score": "0",
+          "justification": "The privacy policy does not state any measures taken to protect data in transmission and in storage.",
+          "excerpt": ""
+        },
+        {
+          "Enumeration": "10",
+          "section": "Privacy Document Scope",
+          "metric": "Storage Duration",
+          "question": "Do the privacy documents state how long data will be stored after collection by the website or deletion by the user?",
+          "score": "0",
+          "justification": "The privacy policy does not state how long data will be stored.",
+          "excerpt": ""
+        },
+        {
+          "Enumeration": "11",
+          "section": "Privacy Document Scope",
+          "metric": "Contact Information",
+          "question": "Do the privacy documents contain an email address, phone number(s), and/or a postal addresses for contacting the organization?",
+          "score": "0",
+          "justification": "The privacy policy does not contain contact information.",
+          "excerpt": ""
+        },
+        {
+          "Enumeration": "12",
+          "section": "Browser Storage",
+          "metric": "HTTPS Cookies",
+          "question": "Does the website use HTTPS cookies?",
+          "score": "0",
+          "justification": "The privacy policy does not mention the use of HTTPS cookies.",
+          "excerpt": ""
+        },
+        {
+          "Enumeration": "13",
+          "section": "Browser Storage",
+          "metric": "HTML5 Local Storage",
+          "question": "Does the website use HTML5 Local Storage or other non-cookie browser storage?",
+          "score": "0",
+          "justification": "The privacy policy does not mention the use of HTML5 Local Storage or other non-cookie browser storage.",
+          "excerpt": ""
+        },
+        {
+          "Enumeration": "14",
+          "section": "Browser Storage",
+          "metric": "Recuced Operability w/o Cookies",
+          "question": "Does the website become significantly less useful if HTTPS cookies or other browser storage is disabled?",
+          "score": "0",
+          "justification": "The privacy policy does not mention the impact of disabling cookies or other browser storage.",
+          "excerpt": ""
+        },
+        {
+          "Enumeration": "15",
+          "section": "Browser Storage",
+          "metric": "Describe Cookie Usage",
+          "question": "If the website uses cookies, do the privacy documents accurately describe the use of HTTPS cookies?",
+          "score": "0",
+          "justification": "The privacy policy does not describe the use of HTTPS cookies.",
+          "excerpt": ""
+        },
+        {
+          "Enumeration": "16",
+          "section": "Browser Storage",
+          "metric": "Describe Alternative Storage Methods",
+          "question": "Do the privacy documents accurately explain the extent to which the user can avoid client storage based tracking and guide the user through that process?",
+          "score": "0",
+          "justification": "The privacy policy does not explain how to avoid client storage based tracking.",
+          "excerpt": ""
+        },
+        {
+          "Enumeration": "17",
+          "section": "Third Party Tracking",
+          "metric": "Third Party Resources",
+          "question": "Does the website use any resources hosted by third parties, such as web beacons or Javascript libraries?",
+          "score": "0",
+          "justification": "The privacy policy does not mention the use of third-party resources.",
+          "excerpt": ""
+        },
+        {
+          "Enumeration": "18",
+          "section": "Third Party Tracking",
+          "metric": "Persistent Cookie Requests",
+          "question": "Does the website generate any requests to third parties which include a persistent cookie?",
+          "score": "0",
+          "justification": "The privacy policy does not mention persistent cookie requests to third parties.",
+          "excerpt": ""
+        },
+        {
+          "Enumeration": "19",
+          "section": "Third Party Tracking",
+          "metric": "Continued Functionality if Cookies Blocked",
+          "question": "Does the website continue to function if browser extensions blocking third party tracking are used?",
+          "score": "0",
+          "justification": "The privacy policy does not mention the functionality of the website if third-party tracking is blocked.",
+          "excerpt": ""
+        },
+        {
+          "Enumeration": "20",
+          "section": "Third Party Tracking",
+          "metric": "Use of Unblocked Third Parties",
+          "question": "Does the website make any requests to third parties which are not blocked by browser extensions blocking third party tracking, such as Javascript libraries?",
+          "score": "0",
+          "justification": "The privacy policy does not mention the use of unblocked third parties.",
+          "excerpt": ""
+        },
+        {
+          "Enumeration": "21",
+          "section": "Third Party Tracking",
+          "metric": "Third Party Plugin Association",
+          "question": "Does the organization associated with the website offer any web plug-ins designed to be used on third party sites?",
+          "score": "0",
+          "justification": "The privacy policy does not mention web plug-ins designed to be used on third-party sites.",
+          "excerpt": ""
+        },
+        {
+          "Enumeration": "22",
+          "section": "Third Party Tracking",
+          "metric": "Opt-Out Cookies",
+          "question": "Do the privacy documents guarantee the user the right to opt-out of non-critical information sharing with third parties and explain any technical measures necessary to do so, such as opt-out cookies?",
+          "score": "0",
+          "justification": "The privacy policy does not mention the right to opt-out of non-critical information sharing with third parties.",
+          "excerpt": ""
+        },
+        {
+          "Enumeration": "23",
+          "section": "Data Handling",
+          "metric": "Targeted Advertisment",
+          "question": "Does the privacy policy allow targeting either advertising or content to the user?",
+          "score": "0",
+          "justification": "The privacy policy does not mention targeted advertising or content.",
+          "excerpt": ""
+        },
+        {
+          "Enumeration": "24",
+          "section": "Data Handling",
+          "metric": "HTTPS Support",
+          "question": "Does the entire website support HTTPS?",
+          "score": "0",
+          "justification": "The privacy policy does not mention HTTPS support.",
+          "excerpt": ""
+        },
+        {
+          "Enumeration": "25",
+          "section": "Data Handling",
+          "metric": "HTTPS Default",
+          "question": "Does the entire website use HTTPS by default?",
+          "score": "0",
+          "justification": "The privacy policy does not mention HTTPS by default.",
+          "excerpt": ""
+        },
+        {
+          "Enumeration": "26",
+          "section": "Data Handling",
+          "metric": "Access to Stored Data",
+          "question": "Does the website provide features for accessing the data which is stored about the user?",
+          "score": "0",
+          "justification": "The privacy policy does not mention features for accessing stored data.",
+          "excerpt": ""
+        },
+        {
+          "Enumeration": "27",
+          "section": "Data Handling",
+          "metric": "Ability to Modify or Delete Stored Data",
+          "question": "Does the website provide features for modifying or deleting data which is stored about the user?",
+          "score": "0",
+          "justification": "The privacy policy does not mention features for modifying or deleting stored data.",
+          "excerpt": ""
+        },
+        {
+          "Enumeration": "28",
+          "section": "Data Handling",
+          "metric": "Guarantee User Rights",
+          "question": "Do the privacy documents guarantee the user rights to access, modify or delete data about the user and provide guidance to do so?",
+          "score": "0",
+          "justification": "The privacy policy does not guarantee user rights to access, modify, or delete data.",
+          "excerpt": ""
+        },
+        {
+          "Enumeration": "29",
+          "section": "Data Handling",
+          "metric": "Data Retention Longer than Necessary",
+          "question": "Do the privacy documents allow data collected from or deleted by the user to be retained longer than is legally necessary?",
+          "score": "0",
+          "justification": "The privacy policy does not mention data retention periods.",
+          "excerpt": ""
+        },
+        {
+          "Enumeration": "30",
+          "section": "Health Data Privacy",
+          "metric": "Health Data Collection",
+          "question": "Does the privacy policy explicitly state whether health-related data is collected (e.g., medical history, biometric data, health conditions)?",
+          "score": "2",
+          "justification": "The privacy policy mentions the collection of health-related data.",
+          "excerpt": "In this policy we explain the different types of personal information we collect."
+        },
+        {
+          "Enumeration": "31",
+          "section": "Health Data Privacy",
+          "metric": "Purpose Limitation",
+          "question": "Does the privacy policy clearly state the specific purposes for which health data is collected and used (e.g., treatment, research, marketing)?",
+          "score": "2",
+          "justification": "The privacy policy states the purposes for which health data is collected and used.",
+          "excerpt": "In this policy we explain... how we may collect and use it."
+        },
+        {
+          "Enumeration": "32",
+          "section": "Health Data Privacy",
+          "metric": "Consent for Health Data",
+          "question": "Does the organization obtain explicit consent (opt-in) from users before collecting or processing health data?",
+          "score": "0",
+          "justification": "The privacy policy does not mention obtaining explicit consent before collecting or processing health data.",
+          "excerpt": ""
+        },
+        {
+          "Enumeration": "33",
+          "section": "Health Data Privacy",
+          "metric": "Sharing with Third Parties",
+          "question": "Does the privacy policy prohibit sharing health data with third parties for purposes unrelated to direct services (e.g., marketing, advertising)?",
+          "score": "0",
+          "justification": "The privacy policy does not mention prohibiting sharing health data with third parties for unrelated purposes.",
+          "excerpt": ""
+        },
+        {
+          "Enumeration": "34",
+          "section": "Health Data Privacy",
+          "metric": "Compliance with Health Privacy Laws",
+          "question": "Does the privacy policy state compliance with relevant health privacy regulations (e.g., HIPAA, GDPR health provisions)?",
+          "score": "0",
+          "justification": "The privacy policy does not mention compliance with relevant health privacy regulations.",
+          "excerpt": ""
+        }
+      ],
+      "PrivacyLensAssessmentSummary": [
+        {
+          "overview": "Diabetes Australia's privacy policy yielded a total of 10 out of 34 points. The policy provides some information on data collection and usage but lacks details on security measures, user rights, and third-party tracking.",
+          "positives": [
+            "Comprehensive document referred to as the 'privacy policy'.",
+            "Clear explanations of the types of personal information collected and how it is used.",
+            "Mentions the collection of health-related data and its purposes."
+          ],
+          "concerns": [
+            "No mention of the last update date or change notifications.",
+            "Lacks details on security measures, data retention periods, and user rights.",
+            "No information on third-party tracking or opt-out mechanisms."
+          ],
+          "rating": "Basic coverage with significant gaps in transparency and user control."
+        },
+        {
+          "assumptions_or_gaps": [
+            "This assessment is based on the publicly available privacy policy of Diabetes Australia as of the provided text and may not reflect future updates.",
+            "Technical details on third-party requests, logs, or retention policies are not covered due to the lack of information in the policy."
+          ]
+        },
+        {
+          "readability grade level score": "10.0"
+        },
+        {
+          "readability reading ease score": "60.0"
+        }
+      ]
+    },
+    "dateCaptured": {
+      "$date": "2025-03-28T20:09:27.543Z"
+    },
+    "failed": false,
+    "flags": {
+      "couldNotReadHTML": false,
+      "policyLinkNotFound": false
+    },
+    "forceRegrade": false,
+    "policyText": "Diabetes Australia privacy policy | Diabetes Australia\nSkip to content\nHome\nPrivacy policy\nProtecting your privacy and ensuring that you control the way your information is used is our priority. We want to make sure you are fully informed about the way we handle your information. In this policy we explain the different types of personal information we collect, how we may collect and use it, who we may share it with, and the rights you have over your information.\nYou can access the full Diabetes Australia privacy policy here:\nWhat state or territory do you live in?\nI live in Victoria\nI live in another state or territory",
+    "privacyPolicyURL": "https://www.diabetesaustralia.com.au/privacy-policy/"
+  }
