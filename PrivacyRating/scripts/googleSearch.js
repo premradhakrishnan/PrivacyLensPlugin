@@ -1,11 +1,13 @@
 // googleSearch.js - Google search specific functionality
 
 // Ensure config is defined
-window.PrivacyLensConfig = window.PrivacyLensConfig || {
-  apiUrl: "https://api.privacylens.info",
-  appUrl: "https://www.privacylens.info"
-  };
-  
+// window.PrivacyLensConfig = window.PrivacyLensConfig || {
+//   apiUrl: "https://api.privacylens.info",
+//   appUrl: "https://www.privacylens.info"
+//   };
+  const apiUrl = PrivacyLensConfig.apiUrl;
+  const appUrl = PrivacyLensConfig.appUrl;
+
   // Define PrivacyLens namespace if it doesn't exist
   window.PrivacyLens = window.PrivacyLens || {};
   

@@ -1,4 +1,6 @@
 // domainAnalysis.js - Functions to analyze and display domain data
+//const apiUrl = PrivacyLensConfig.apiUrl;
+//const appUrl = PrivacyLensConfig.appUrl;
 
 // Define PrivacyLens namespace if it doesn't exist
 window.PrivacyLens = window.PrivacyLens || {};
@@ -14,8 +16,7 @@ PrivacyLens.domainAnalysis = {
     if (!domainList) return;
     
     domainList.innerHTML = "";
-    const apiUrl = PrivacyLensConfig.apiUrl;
-    const appUrl = PrivacyLensConfig.appUrl;
+    
     const detailedResultsLink = document.getElementById('detailed-results-link');
 
     // Remove duplicates so each domain is only shown once
@@ -118,8 +119,8 @@ PrivacyLens.domainAnalysis = {
     const domainList = document.getElementById('domain-list');
     const summaryContent = document.getElementById('privacy-summary-content');
     const summaryTitle = document.querySelector('.privacy-lens-summary-title');
-    const apiUrl = PrivacyLensConfig.apiUrl;
-    const appUrl = PrivacyLensConfig.appUrl;
+    //const apiUrl = PrivacyLensConfig.apiUrl;
+    //const appUrl = PrivacyLensConfig.appUrl;
     const detailedResultsLink = document.getElementById('detailed-results-link');
 
     // Set detailed results link
@@ -225,7 +226,7 @@ function getRating(){
  * @returns {Promise} Promise that resolves with the detailed domain data
  */
 PrivacyLens.domainAnalysis.fetchDetailedDomainRating = function(domain) {
-    const apiUrl = window.PrivacyLensConfig.apiUrl;
+    //const apiUrl = window.PrivacyLensConfig.apiUrl;
     
     return fetch(`${apiUrl}/privacyRatingSingleDomain`, {
       method: "POST",
@@ -485,9 +486,9 @@ PrivacyLens.domainAnalysis.fetchDetailedDomainRating = function(domain) {
   PrivacyLens.domainAnalysis.populateSingleDomainView = function(domain = null) {
     // If no domain provided, use current
     domain = domain || PrivacyLens.utils.getCurrentDomain();
-    
+    console.log("populateSingleDomainView: " + domain);
     const summaryContent = document.getElementById('privacy-summary-content');
-    const appUrl = PrivacyLensConfig.appUrl;
+    //const appUrl = PrivacyLensConfig.appUrl;
     const detailedResultsLink = document.getElementById('detailed-results-link');
   
     // Set detailed results link
